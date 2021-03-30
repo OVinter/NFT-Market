@@ -34,3 +34,6 @@ build/
 
 ### Databse ###
 src/main/resources/application.properties
+!src/main/resources/
+*.properties
+!maven-wrapper.properties
