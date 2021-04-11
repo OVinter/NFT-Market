@@ -25,12 +25,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> helloWorld() {
-        return List.of(
-                new User("aaa", "aaa@aaa", null, "123456")
-        );
-    }
-
     public User addUser(User user) {
         Optional<User> u = userRepository.findUserByEmail(user.getEmail());
         if(u.isPresent()) {

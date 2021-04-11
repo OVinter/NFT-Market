@@ -22,7 +22,7 @@ public class User {
     @NonNull
     private String email;
     @Getter @Setter
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Nft> nfts;
     @Getter @Setter
     @NonNull

@@ -27,11 +27,6 @@ public class UsersController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/hello")
-    public List<User> hello() {
-        return userService.helloWorld();
-    }
-
     @PostMapping
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
