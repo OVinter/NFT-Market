@@ -1,6 +1,5 @@
 package com.Market.NFT.NftPackage;
 
-import com.Market.NFT.OrderPackage.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ public class NftController {
       return nftService.getNft(id);
     }
 
-    @PostMapping("bid")
-    public Order bidNft(Order order) { return nftService.order(order); }
+//    @PostMapping("bid")
+//    public Order bidNft(Order order) { return nftService.order(order); }
 
 }
