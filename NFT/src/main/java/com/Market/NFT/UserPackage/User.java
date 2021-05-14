@@ -1,45 +1,36 @@
 package com.Market.NFT.UserPackage;
 
 import com.Market.NFT.NftPackage.Nft;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class User {
 
-    @Getter @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Getter @Setter
-    @NonNull
+    @NotBlank(message = "User name is required") // test
     private String userName;
-    @Getter @Setter
-    @NonNull
+    @NotBlank(message = "Password is required") // test
+    private String password;
+    @NotBlank(message = "Email is required") // test
     private String email;
-    @Getter @Setter
     @OneToMany(cascade = CascadeType.ALL)
     private List<Nft> nfts;
-    @Getter @Setter
-    @NonNull
-    private String password;
 
-    public User() {
-    }
+    private Instant created;
+    private boolean enabled;
+
 
     public User(@NonNull String userName, @NonNull String email, List<Nft> nfts, String password) {
-        this.userName = userName;
-        this.email = email;
-        this.nfts = nfts;
-        this.password = password;
-    }
-
-    public User(Long id, @NonNull String userName, @NonNull String email, List<Nft> nfts, String password) {
-        this.id = id;
         this.userName = userName;
         this.email = email;
         this.nfts = nfts;
@@ -49,7 +40,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "userId=" + id +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
                 ", nfts=" + nfts.toString() +

@@ -1,31 +1,31 @@
 package com.Market.NFT.NftPackage;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 
 @Entity
 @Embeddable
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Nft {
 
-    @Getter @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Getter @Setter
+    @NotBlank(message = "Bid price is required") // test
     private Long bidPrice;
-    @Getter @Setter
+    @NotBlank(message = "Nft name is required") // test
     private String nftName;
-    @Getter @Setter
+    @NotBlank(message = "Media file is required") // test
     private String mediaFile;
 
-    public Nft(Long id, Long bidPrice, String nftName, String mediaFile) {
-        this.id = id;
-        this.bidPrice = bidPrice;
-        this.nftName = nftName;
-        this.mediaFile = mediaFile;
-    }
+    private Instant created;
+
 
     public Nft(Long bidPrice, String nftName, String mediaFile) {
         this.bidPrice = bidPrice;
@@ -33,15 +33,10 @@ public class Nft {
         this.mediaFile = mediaFile;
     }
 
-    public Nft() {
-
-    }
-
-
     @Override
     public String toString() {
         return "Nft{" +
-                "id=" + id +
+                "nftId=" + id +
                 ", bidPrice=" + bidPrice +
                 ", nftName='" + nftName + '\'' +
                 ", mediaFile='" + mediaFile + '\'' +
