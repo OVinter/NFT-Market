@@ -26,7 +26,4 @@ public class NftController {
       return nftService.getNft(id);
     }
 
-//    @PostMapping("bid")
-//    public Order bidNft(Order order) { return nftService.order(order); }
-
 }
