@@ -23,8 +23,7 @@ public class Nft {
     private String nftName;
     @NotBlank(message = "Media file is required") // test
     private String mediaFile;
-
-    private Instant created;
+    private Long idUser;
 
 
     public Nft(Long bidPrice, String nftName, String mediaFile) {

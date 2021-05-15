@@ -1,11 +1,13 @@
 package com.Market.NFT.UserPackage;
 
+import com.Market.NFT.Kafka.KafkaProducer;
+import com.Market.NFT.Kafka.ModelDto.NftAddDto;
+import com.Market.NFT.Kafka.ModelDto.NftDeleteDto;
 import com.Market.NFT.NftPackage.Nft;
 import com.Market.NFT.NftPackage.NftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,11 +16,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final NftRepository nftRepository;
+    private final KafkaProducer kafkaProducer;
 
     @Autowired
-    public UserService(UserRepository userRepository, NftRepository nftRepository) {
+    public UserService(UserRepository userRepository, NftRepository nftRepository, KafkaProducer kafkaProducer) {
         this.userRepository = userRepository;
         this.nftRepository = nftRepository;
+        this.kafkaProducer = kafkaProducer;
     }
 
     public List<User> getAllUsers() {
@@ -73,20 +77,24 @@ public class UserService {
     return false;
   }
 
-  public Nft addNft(Long id, Nft nft) {
-    Optional<User> u = userRepository.findById(id);
-    User user;
-    List<Nft> nfts = new ArrayList<Nft>();
-    if(u.isPresent()) {
-      user = u.get();
-      if (!user.getNfts().isEmpty()) {
-        nfts = user.getNfts();
-      }
-      nfts.add(nft);
-      user.setNfts(nfts);
-      return nftRepository.save(nft);
-    }
-    throw new IllegalStateException("user with id: " + id + " not exist");
+  public void addNft(Long id, Nft nft) {
+//    Optional<User> u = userRepository.findById(id);
+//    User user;
+//    List<Nft> nfts = new ArrayList<Nft>();
+//    if(u.isPresent()) {
+//      user = u.get();
+//      if (!user.getNfts().isEmpty()) {
+//        nfts = user.getNfts();
+//      }
+//      nfts.add(nft);
+//      user.setNfts(nfts);
+//      return nftRepository.save(nft);
+//    }
+//    throw new IllegalStateException("user with id: " + id + " not exist");
+      NftAddDto nftAddDto = new NftAddDto();
+      nftAddDto.setNft(nft);
+      nftAddDto.setIdUser(id);
+      kafkaProducer.sendAddNft("addNft", nftAddDto);
   }
 
 
@@ -126,26 +134,30 @@ public class UserService {
     throw new IllegalStateException("user with id: " + idUser + " not exist");
   }
 
-  public boolean deleteNft(Long idUser, Long idNft) {
-    Optional<User> u = userRepository.findById(idUser);
-    Optional<Nft> p;
-    Nft nft;
-    User user;
-    List<Nft> nfts;
-    if(u.isPresent()) {
-      user = u.get();
-      p = nftRepository.findById(idNft);
-      if(p.isPresent()) {
-        nft = p.get();
-        nfts = user.getNfts();
-        nfts.remove(nft);
-        user.setNfts(nfts);
-        userRepository.save(user);
-        nftRepository.delete(nft);
-        return true;
-      }
-      throw new IllegalStateException("nft with id: " + idNft + " not exist");
-    }
-    throw new IllegalStateException("user with id: " + idUser + " not exist");
+  public void deleteNft(Long idUser, Long idNft) {
+//    Optional<User> u = userRepository.findById(idUser);
+//    Optional<Nft> p;
+//    Nft nft;
+//    User user;
+//    List<Nft> nfts;
+//    if(u.isPresent()) {
+//      user = u.get();
+//      p = nftRepository.findById(idNft);
+//      if(p.isPresent()) {
+//        nft = p.get();
+//        nfts = user.getNfts();
+//        nfts.remove(nft);
+//        user.setNfts(nfts);
+//        userRepository.save(user);
+//        nftRepository.delete(nft);
+//        return true;
+//      }
+//      throw new IllegalStateException("nft with id: " + idNft + " not exist");
+//    }
+//    throw new IllegalStateException("user with id: " + idUser + " not exist");
+      NftDeleteDto nftDeleteDto = new NftDeleteDto();
+      nftDeleteDto.setIdNft(idNft);
+      nftDeleteDto.setIdUser(idUser);
+      kafkaProducer.sendDeleteNft("deleteNft", nftDeleteDto);
   }
 }
