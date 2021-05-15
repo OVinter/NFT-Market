@@ -35,33 +35,6 @@ public class KafkaConsumer {
     this.userRepository = userRepository;
   }
 
-  @KafkaListener(topics = "test", groupId = "test")
-  public void receiveNestedDto(ConsumerRecord<?, ?> consumerRecord) {
-    LOGGER.info("received payload='{}'", consumerRecord.toString());
-    System.out.println(consumerRecord.value());
-    Gson gson = new Gson();
-    NestedDto testDto = gson.fromJson((String)consumerRecord.value(), NestedDto.class);
-    System.out.println(testDto.toString());
-    System.out.println(testDto.getTestDto().getMess());
-    System.out.println(testDto.getTestDto().getName());
-    System.out.println(testDto.getId());
-    System.out.println("receiveNestedDto");
-    latch.countDown();
-  }
-
-  @KafkaListener(topics = "test1", groupId = "test")
-  public void receiveTestDto(ConsumerRecord<?, ?> consumerRecord) {
-    LOGGER.info("received payload='{}'", consumerRecord.toString());
-    System.out.println(consumerRecord.value());
-    Gson gson = new Gson();
-    TestDto testDto = gson.fromJson((String)consumerRecord.value(), TestDto.class);
-    System.out.println(testDto.toString());
-    System.out.println(testDto.getMess());
-    System.out.println(testDto.getName());
-    System.out.println("receiveTestDto");
-    latch.countDown();
-  }
-
   @KafkaListener(topics = "addNft", groupId = "test")
   public void receiveAddNft(ConsumerRecord<?, ?> consumerRecord) {
     LOGGER.info("received payload='{}'", consumerRecord.toString());

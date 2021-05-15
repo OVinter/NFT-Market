@@ -18,21 +18,6 @@ public class KafkaProducer {
   @Autowired
   private KafkaTemplate<String, String> kafkaTemplate;
 
-
-  public void sendNestedDto(String topic, NestedDto testDto) {
-    LOGGER.info("sending payload='{}' to topic='{}'", testDto, topic);
-    Gson gson = new Gson();
-    String payload = gson.toJson(testDto);
-    kafkaTemplate.send(topic, payload);
-  }
-
-  public void sendTestDto(String topic, TestDto testDto) {
-    LOGGER.info("sending payload='{}' to topic='{}'", testDto, topic);
-    Gson gson = new Gson();
-    String payload = gson.toJson(testDto);
-    kafkaTemplate.send(topic, payload);
-  }
-
   public void sendAddNft(String topic, NftAddDto nftAddDto) {
     LOGGER.info("sending payload='{}' to topic='{}'", nftAddDto, topic);
     Gson gson = new Gson();
