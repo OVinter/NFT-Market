@@ -42,7 +42,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setEmail(registerRequest.getEmail());
         user.setCreated(Instant.now());
-        user.setEnabled(true);
+        user.setEnabled(false);
 
         userRepository.save(user);
 
