@@ -92,29 +92,29 @@ public class KafkaConsumer {
 
   @KafkaListener(topics = "deleteNft", groupId = "test")
   public void receiveDeleteNft(ConsumerRecord<?, ?> consumerRecord) {
-//    LOGGER.info("received payload='{}'", consumerRecord.toString());
-//    System.out.println(consumerRecord.value());
-//    Gson gson = new Gson();
-//    NftDeleteDto nftDeleteDto = gson.fromJson((String)consumerRecord.value(), NftDeleteDto.class);
-//    Optional<User> u = userRepository.findById(nftDeleteDto.getIdUser());
-//    Optional<Nft> p;
-//    Nft nft;
-//    User user;
-//    List<Nft> nfts;
-//    if (u.isPresent()) {
-//      user = u.get();
-//      p = nftRepository.findById(nftDeleteDto.getIdNft());
-//      if (p.isPresent()) {
-//        nft = p.get();
-//        nfts = user.getNfts();
-//        nfts.remove(nft);
-//        user.setNfts(nfts);
-//        userRepository.save(user);
-//        nftRepository.delete(nft);
-//      }
-//    }
-//    System.out.println("receiveDeleteNft");
-//    latch.countDown();
+    LOGGER.info("received payload='{}'", consumerRecord.toString());
+    System.out.println(consumerRecord.value());
+    Gson gson = new Gson();
+    NftDeleteDto nftDeleteDto = gson.fromJson((String)consumerRecord.value(), NftDeleteDto.class);
+    Optional<User> u = userRepository.findById(nftDeleteDto.getIdUser());
+    Optional<Nft> p;
+    Nft nft;
+    User user;
+    List<Nft> nfts;
+    if (u.isPresent()) {
+      user = u.get();
+      p = nftRepository.findById(nftDeleteDto.getIdNft());
+      if (p.isPresent()) {
+        nft = p.get();
+        nfts = user.getNfts();
+        nfts.remove(nft);
+        user.setNfts(nfts);
+        userRepository.save(user);
+        nftRepository.delete(nft);
+      }
+    }
+    System.out.println("receiveDeleteNft");
+    latch.countDown();
   }
 
   public CountDownLatch getLatch() {
