@@ -23,7 +23,7 @@ public class User {
     private String password;
     @NotBlank(message = "Email is required") // test
     private String email;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Nft> nfts;
 
     private Instant created;

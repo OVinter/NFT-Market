@@ -53,8 +53,9 @@ public class UsersController {
     }
 
     @PostMapping("/{idUser}/nfts")
-    public Nft addProduct(@PathVariable Long idUser, @RequestBody Nft nft) {
-      return userService.addNft(idUser, nft);
+    public void addProduct(@PathVariable Long idUser, @RequestBody Nft nft) {
+      //return userService.addNft(idUser, nft);
+      userService.addNft(idUser, nft);
     }
 
     @GetMapping("/{idUser}/nfts/{idNft}")
@@ -70,7 +71,8 @@ public class UsersController {
     }
 
     @DeleteMapping("/{idUser}/nfts/{idNft}")
-    public boolean deleteProduct(@PathVariable Long idUser, @PathVariable Long idNft) {
-      return userService.deleteNft(idUser, idNft);
+    public void deleteProduct(@PathVariable Long idUser, @PathVariable Long idNft) {
+      //return userService.deleteNft(idUser, idNft);
+      userService.deleteNft(idUser, idNft);
     }
 }

@@ -1,5 +1,7 @@
 package com.Market.NFT.Kafka;
 
+import com.Market.NFT.Kafka.ModelDto.NftAddDto;
+import com.Market.NFT.Kafka.ModelDto.NftDeleteDto;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,13 +17,33 @@ public class KafkaProducer {
 
   @Autowired
   private KafkaTemplate<String, String> kafkaTemplate;
-  @Autowired
-  private JavaSerializer javaSerializer;
 
-  public void send(String topic, TestDto testDto) {
+
+  public void sendNestedDto(String topic, NestedDto testDto) {
     LOGGER.info("sending payload='{}' to topic='{}'", testDto, topic);
     Gson gson = new Gson();
     String payload = gson.toJson(testDto);
+    kafkaTemplate.send(topic, payload);
+  }
+
+  public void sendTestDto(String topic, TestDto testDto) {
+    LOGGER.info("sending payload='{}' to topic='{}'", testDto, topic);
+    Gson gson = new Gson();
+    String payload = gson.toJson(testDto);
+    kafkaTemplate.send(topic, payload);
+  }
+
+  public void sendAddNft(String topic, NftAddDto nftAddDto) {
+    LOGGER.info("sending payload='{}' to topic='{}'", nftAddDto, topic);
+    Gson gson = new Gson();
+    String payload = gson.toJson(nftAddDto);
+    kafkaTemplate.send(topic, payload);
+  }
+
+  public void sendDeleteNft(String topic, NftDeleteDto nftDeleteDto) {
+    LOGGER.info("sending payload='{}' to topic='{}'", nftDeleteDto, topic);
+    Gson gson = new Gson();
+    String payload = gson.toJson(nftDeleteDto);
     kafkaTemplate.send(topic, payload);
   }
 

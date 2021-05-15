@@ -15,8 +15,15 @@ public class KafkaController {
   }
 
   @GetMapping()
-  public void getKafka(@RequestBody TestDto testDto) {
-    kafkaProducer.send("test", testDto);
+  public void getKafka(@RequestBody NestedDto testDto) {
+    kafkaProducer.sendNestedDto("test", testDto);
   }
+
+  @GetMapping("test")
+  public void getKafkaOne(@RequestBody TestDto testDto) {
+    kafkaProducer.sendTestDto("test1", testDto);
+  }
+
+
 
 }
