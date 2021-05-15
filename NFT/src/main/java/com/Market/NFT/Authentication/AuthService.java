@@ -31,7 +31,12 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
 
-    public void signup(RegisterRequest registerRequest) {
+    public boolean signup(RegisterRequest registerRequest) {
+        Optional<User> optionalUser = userRepository.findUserByEmail(registerRequest.getEmail());
+        Optional<User> optionalUser1 = userRepository.findByuserName((registerRequest.getUserName()));
+        if(optionalUser.isPresent() || optionalUser1.isPresent()) {
+            return false;
+        }
         User user = new User();
         user.setUserName(registerRequest.getUserName());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
@@ -45,6 +50,7 @@ public class AuthService {
         mailService.sendMail(new NotificationEmail("Please activate your account",
                 user.getEmail(), "Thank you, " + "please click on the below url to activate your account : " +
                 "http://localhost:8080/api/auth/accountVerification/" + token));
+        return true;
     }
 
     private String generateVerificationToken(User user) {

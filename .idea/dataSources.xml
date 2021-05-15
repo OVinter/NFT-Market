@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="nftmarket" uuid="09cf3f7a-6de1-4a82-ab30-9f528ad6837f">
+    <data-source source="LOCAL" name="nftmarket@localhost" uuid="e25ad981-e087-4905-aed5-350aa7120dc2">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

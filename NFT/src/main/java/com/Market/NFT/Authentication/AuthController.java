@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
 
@@ -19,14 +20,16 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-        authService.signup(registerRequest);
-        return new ResponseEntity<>("User Registration Successfully", OK);
+        if(authService.signup(registerRequest))
+            return new ResponseEntity<>("User Registration Successfully", OK);
+        else
+            return new ResponseEntity<>("User Already Exist", BAD_REQUEST);
     }
 
-    @GetMapping("accountverification/{token}")
+    @GetMapping("accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
-        return new ResponseEntity<>("Account activated successfully", OK);
+        return new ResponseEntity<>("Account Activated Successfully", OK);
     }
 
     @PostMapping("/login")
