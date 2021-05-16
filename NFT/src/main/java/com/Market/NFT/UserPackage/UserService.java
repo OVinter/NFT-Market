@@ -4,6 +4,7 @@ import com.Market.NFT.Kafka.KafkaProducer;
 import com.Market.NFT.Kafka.ModelDto.NftAddDto;
 import com.Market.NFT.Kafka.ModelDto.NftDeleteDto;
 import com.Market.NFT.NftPackage.Nft;
+import com.Market.NFT.NftPackage.NftModel;
 import com.Market.NFT.NftPackage.NftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -111,7 +112,7 @@ public class UserService {
     throw new IllegalStateException("user with id: " + idUser + " not exist");
   }
 
-  public Nft modifyNft(Long idUser, Long idNft, Nft nft) {
+  public Nft modifyNft(Long idUser, Long idNft, NftModel nft) {
     Optional<User> u = userRepository.findById(idUser);
     User user;
     Nft modifyNft;

@@ -1,6 +1,7 @@
 package com.Market.NFT.UserPackage;
 
 import com.Market.NFT.NftPackage.Nft;
+import com.Market.NFT.NftPackage.NftModel;
 import com.Market.NFT.UserPackage.UserRepository;
 import com.Market.NFT.UserPackage.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class UsersController {
     @PutMapping("/{idUser}/nfts/{idNft}")
     public Nft modifyProduct(@PathVariable Long idUser,
                                  @PathVariable Long idNft,
-                                 @RequestBody Nft nft) {
+                                 @RequestBody NftModel nft) {
       return userService.modifyNft(idUser, idNft, nft);
     }
 
